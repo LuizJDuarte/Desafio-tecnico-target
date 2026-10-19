@@ -30,7 +30,8 @@ public class TelaJuros
             Console.WriteLine($"Vencimento:          {ConsoleHelper.FormatarData(calculo.DataVencimento)}");
             Console.WriteLine($"Data do cálculo:     {ConsoleHelper.FormatarData(calculo.DataCalculo)}");
             Console.WriteLine($"Dias em atraso:      {calculo.DiasAtraso}");
-            Console.WriteLine($"Juros (2,5% ao dia): {ConsoleHelper.FormatarMoeda(calculo.ValorJuros)}");
+            Console.WriteLine($"Taxa:                {ConsoleHelper.FormatarPercentual(JurosService.TaxaDiaria)} ao dia");
+            Console.WriteLine($"Juros:               {ConsoleHelper.FormatarMoeda(calculo.ValorJuros)}");
             Console.WriteLine($"Valor atualizado:    {ConsoleHelper.FormatarMoeda(calculo.ValorAtualizado)}");
 
             if (calculo.DiasAtraso == 0)

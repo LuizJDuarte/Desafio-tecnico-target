@@ -2,10 +2,11 @@ namespace DesafioTarget.Comissoes;
 
 public class ComissaoService
 {
-    private const decimal ValorMinimoParaComissao = 100m;
-    private const decimal ValorMinimoParaCincoPorCento = 500m;
-    private const decimal UmPorCento = 0.01m;
-    private const decimal CincoPorCento = 0.05m;
+    // Públicas porque a tela de comissões usa os mesmos valores pra mostrar a regra
+    public const decimal ValorMinimoParaComissao = 100m;
+    public const decimal ValorMinimoFaixaMaior = 500m;
+    public const decimal PercentualFaixaMenor = 0.01m;
+    public const decimal PercentualFaixaMaior = 0.05m;
 
     public decimal CalcularComissao(decimal valorVenda)
     {
@@ -16,13 +17,13 @@ public class ComissaoService
         }
 
         // De R$ 100,00 até abaixo de R$ 500,00 gera 1%
-        if (valorVenda < ValorMinimoParaCincoPorCento)
+        if (valorVenda < ValorMinimoFaixaMaior)
         {
-            return valorVenda * UmPorCento;
+            return valorVenda * PercentualFaixaMenor;
         }
 
         // A partir de R$ 500,00 gera 5%
-        return valorVenda * CincoPorCento;
+        return valorVenda * PercentualFaixaMaior;
     }
 
     public List<ComissaoVendedor> CalcularComissoes(List<Venda> vendas)

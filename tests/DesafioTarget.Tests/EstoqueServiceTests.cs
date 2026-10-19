@@ -56,6 +56,26 @@ public class EstoqueServiceTests
     }
 
     [Fact]
+    public void Entrada_QuePassaDoLimiteDoEstoque_NaoDeveSerPermitida()
+    {
+        // 150 + int.MaxValue estouraria o int e o estoque ficaria negativo
+        var erro = Assert.Throws<InvalidOperationException>(
+            () => _service.Movimentar(101, TipoMovimentacao.Entrada, int.MaxValue, "Compra de fornecedor"));
+
+        Assert.Contains("limite", erro.Message);
+        Assert.Equal(150, _service.BuscarProduto(101).Estoque);
+        Assert.Empty(_service.ListarMovimentacoes());
+    }
+
+    [Fact]
+    public void Entrada_AteOLimiteDoEstoque_DevePassar()
+    {
+        var movimentacao = _service.Movimentar(101, TipoMovimentacao.Entrada, int.MaxValue - 150, "Compra de fornecedor");
+
+        Assert.Equal(int.MaxValue, movimentacao.EstoqueFinal);
+    }
+
+    [Fact]
     public void CadaMovimentacao_DeveTerUmIdUnico()
     {
         var primeira = _service.Movimentar(101, TipoMovimentacao.Entrada, 10, "Compra de fornecedor");
