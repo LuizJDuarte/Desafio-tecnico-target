@@ -18,9 +18,15 @@ public class TelaComissoes
     {
         var comissoes = _comissaoService.CalcularComissoes(_vendas);
 
+        // A regra mostrada vem das constantes do service, então tela e cálculo nunca ficam diferentes
+        var minimo = ConsoleHelper.FormatarMoeda(ComissaoService.ValorMinimoParaComissao);
+        var faixaMaior = ConsoleHelper.FormatarMoeda(ComissaoService.ValorMinimoFaixaMaior);
+        var percentualMenor = ConsoleHelper.FormatarPercentual(ComissaoService.PercentualFaixaMenor);
+        var percentualMaior = ConsoleHelper.FormatarPercentual(ComissaoService.PercentualFaixaMaior);
+
         Console.WriteLine();
         Console.WriteLine("----- Comissão dos vendedores -----");
-        Console.WriteLine("Regra: abaixo de R$ 100,00 não gera comissão, abaixo de R$ 500,00 gera 1%, a partir de R$ 500,00 gera 5%");
+        Console.WriteLine($"Regra: abaixo de {minimo} não gera comissão, abaixo de {faixaMaior} gera {percentualMenor}, a partir de {faixaMaior} gera {percentualMaior}");
         Console.WriteLine();
         Console.WriteLine($"{"Vendedor",-18}{"Vendas",7}{"Total vendido",17}{"Comissão",14}");
 

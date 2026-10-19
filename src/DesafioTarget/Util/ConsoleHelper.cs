@@ -48,7 +48,7 @@ public static class ConsoleHelper
                 return valor;
             }
 
-            Erro("Valor inválido. Use vírgula nos centavos, ex: 1500,50");
+            Erro("Valor inválido. Use vírgula nos centavos e não use ponto de milhar, ex: 1500,50");
         }
     }
 
@@ -58,7 +58,8 @@ public static class ConsoleHelper
         {
             var texto = LerTexto(mensagem);
 
-            if (DateOnly.TryParseExact(texto, "dd/MM/yyyy", CulturaBr, DateTimeStyles.None, out var data))
+            // "d/M" aceita dia e mês com 1 ou 2 dígitos, então 5/10/2026 e 05/10/2026 funcionam
+            if (DateOnly.TryParseExact(texto, "d/M/yyyy", CulturaBr, DateTimeStyles.None, out var data))
             {
                 return data;
             }
@@ -70,6 +71,12 @@ public static class ConsoleHelper
     public static string FormatarMoeda(decimal valor)
     {
         return valor.ToString("C", CulturaBr);
+    }
+
+    // 0.025 vira "2,5%"
+    public static string FormatarPercentual(decimal taxa)
+    {
+        return (taxa * 100).ToString("0.##", CulturaBr) + "%";
     }
 
     public static string FormatarData(DateOnly data)

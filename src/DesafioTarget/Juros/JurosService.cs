@@ -2,8 +2,8 @@ namespace DesafioTarget.Juros;
 
 public class JurosService
 {
-    // 2,5% ao dia sobre o valor original (juros simples)
-    private const decimal TaxaDiaria = 0.025m;
+    // 2,5% ao dia sobre o valor original (juros simples). Pública porque a tela mostra a taxa
+    public const decimal TaxaDiaria = 0.025m;
 
     // A data do cálculo vem por parâmetro em vez de usar DateTime.Today aqui dentro,
     // assim o teste consegue fixar o "hoje" e o resultado não muda de um dia pro outro
