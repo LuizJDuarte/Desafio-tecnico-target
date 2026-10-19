@@ -56,6 +56,13 @@ public class EstoqueService
                 $"Estoque insuficiente de {produto.DescricaoProduto}. Disponível: {produto.Estoque}, solicitado: {quantidade}.");
         }
 
+        // Entrada não pode passar do limite do int, senão a soma estoura e o estoque vira negativo sem dar erro
+        if (tipo == TipoMovimentacao.Entrada && quantidade > int.MaxValue - produto.Estoque)
+        {
+            throw new InvalidOperationException(
+                $"A entrada passa do limite de estoque de {produto.DescricaoProduto}. Máximo que ainda cabe: {int.MaxValue - produto.Estoque}.");
+        }
+
         if (tipo == TipoMovimentacao.Entrada)
         {
             produto.Estoque += quantidade;

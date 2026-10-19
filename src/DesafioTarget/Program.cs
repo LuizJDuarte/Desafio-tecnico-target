@@ -37,22 +37,34 @@ while (true)
 
     var opcao = ConsoleHelper.LerTexto("Escolha uma opção: ");
 
-    switch (opcao)
+    try
     {
-        case "1":
-            telaComissoes.Exibir();
-            break;
-        case "2":
-            telaEstoque.Exibir();
-            break;
-        case "3":
-            telaJuros.Exibir();
-            break;
-        case "0":
-            Console.WriteLine("Até mais!");
-            return;
-        default:
-            ConsoleHelper.Erro("Opção inválida.");
-            break;
+        switch (opcao)
+        {
+            case "1":
+                telaComissoes.Exibir();
+                break;
+            case "2":
+                telaEstoque.Exibir();
+                break;
+            case "3":
+                telaJuros.Exibir();
+                break;
+            case "0":
+                Console.WriteLine("Até mais!");
+                return;
+            default:
+                ConsoleHelper.Erro("Opção inválida.");
+                break;
+        }
+    }
+    catch (OverflowException)
+    {
+        ConsoleHelper.Erro("O valor informado é grande demais para o cálculo.");
+    }
+    catch (Exception ex)
+    {
+        // Qualquer erro que escapar das telas cai aqui, assim o programa não fecha no meio do uso
+        ConsoleHelper.Erro($"Algo inesperado aconteceu: {ex.Message}");
     }
 }
